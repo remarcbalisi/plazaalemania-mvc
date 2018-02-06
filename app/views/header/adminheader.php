@@ -9,4 +9,6 @@
   crossorigin="anonymous"></script>
 </head>
 <script type="text/javascript" src="<?php echo(isset($_SERVER['HTTPS']) ? "https": "http"); ?>://<?php echo htmlspecialchars($_SERVER["HTTP_HOST"]); ?>/plazaalemania/public/js/jquery-ui.js"></script>
+<script type="text/javascript" src="<?php echo(isset($_SERVER['HTTPS']) ? "https": "http"); ?>://<?php echo htmlspecialchars($_SERVER["HTTP_HOST"]); ?>/plazaalemania/public/js/user_ajax.js"></script>
+<script type="text/javascript" src="<?php echo(isset($_SERVER['HTTPS']) ? "https": "http"); ?>://<?php echo htmlspecialchars($_SERVER["HTTP_HOST"]); ?>/plazaalemania/public/js/showDialogBox.js"></script>
 <body style="font-family:Verdana;color:#aaaaaa;">

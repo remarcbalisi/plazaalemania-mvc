@@ -39,8 +39,17 @@ class AdminHome extends Controller{
             "fname" => $user[0]['fname'],
             "mname" => $user[0]['mname'],
             "lname" => $user[0]['lname'],
-            "email" => $user[0]['email']
+            "email" => $user[0]['email'],
+            "address" => $user[0]['address'],
+            "contact" => $user[0]['contact'],
+            "gender" => $user[0]['gender'],
+            "prof_pic" => (isset($_SERVER['HTTPS']) ? "https": "http")."://".htmlspecialchars($_SERVER["HTTP_HOST"])."/plazaalemania/".$user[0]['prof_pic'],
+            "role" => $user[0]['name']
         ];
+
+        $data = json_encode($data);
+
+        echo $data;
 
     }
 

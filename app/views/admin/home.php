@@ -57,15 +57,10 @@
 </section>
 
 <section id="view_admin_users" style="display:none;" class="">
-    <script>
-  $(function() {
-    $( "#dialog" ).dialog();
-  });
-  </script>
-    <div id="dialog" title="Basic dialog">
-      <p>Image:</p>
-      <img src="http://placehold.it/50x50" alt="Placeholder Image" />
 
+    <div style="display:none" id="dialog" title="User Information">
+      <img id="diag_img" src="http://placehold.it/50x50" alt="Placeholder Image" />
+      <p id="diag_name"></p>
     </div>
 
     <h3>Admin Users</h3>
@@ -115,7 +110,7 @@
         <td><?php echo $au['gender']; ?></td>
         <td><?php echo $au['name']; ?></td>
         <td>
-            <a href="#">View</a>
+            <a href="javascript:;" onclick="viewUserById('<?php echo(isset($_SERVER['HTTPS']) ? "https": "http"); ?>://<?php echo htmlspecialchars($_SERVER["HTTP_HOST"]); ?>/plazaalemania/public/adminhome/viewuserjson/<?php echo $au['id']?>')">View</a>
             <a style="color:green" href="#">Edit</a>
             <a style="color:red" href="#">Delete</a>
         </td>

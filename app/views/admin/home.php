@@ -10,10 +10,13 @@
   <a href="<?php echo(isset($_SERVER['HTTPS']) ? "https": "http"); ?>://<?php echo htmlspecialchars($_SERVER["HTTP_HOST"]); ?>/plazaalemania/public/adminhome/logout">
       <button type="button" name="logout">Logout</button>
   </a>
+
+  <button type="button" name="view_admin_users" onclick="changeTab('add_user');">Add User</button>
+  <button type="button" name="view_admin_users" onclick="changeTab('view_admin_users');">Admin(<?php echo count($data['admin_users']); ?>)</button>
   <hr>
 </section>
 
-<section class="">
+<section id="add_user" class="">
     <h3>Add Admin/Manager</h3>
     <?php if( !empty($data['success_msg']) ): ?>
         <p style="color:green"><?=$data['success_msg']?></p>
@@ -52,6 +55,79 @@
         <button type="submit" name="submit">Add</button>
     </form>
 </section>
+
+<section id="view_admin_users" style="display:none;" class="">
+    <script>
+  $(function() {
+    $( "#dialog" ).dialog();
+  });
+  </script>
+    <div id="dialog" title="Basic dialog">
+      <p>Image:</p>
+      <img src="http://placehold.it/50x50" alt="Placeholder Image" />
+
+    </div>
+
+    <h3>Admin Users</h3>
+    <?php if( !empty($data['success_msg']) ): ?>
+        <p style="color:green"><?=$data['success_msg']?></p>
+    <?php endif; ?>
+    <?php if( !empty($data['error_msg']) ): ?>
+        <p style="color:red"><?=$data['error_msg']?></p>
+    <?php endif; ?>
+
+    <style>
+    table {
+        font-family: arial, sans-serif;
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+    td, th {
+        border: 1px solid #dddddd;
+        text-align: left;
+        padding: 8px;
+    }
+
+    tr:nth-child(even) {
+        background-color: #dddddd;
+    }
+    </style>
+    <table>
+      <tr>
+        <th>Id</th>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Contact</th>
+        <th>Address</th>
+        <th>Gender</th>
+        <th>Role</th>
+        <th>Action</th>
+      </tr>
+
+      <?php foreach( $data['admin_users'] as $au ): ?>
+      <tr>
+        <td><?php echo $au['id']; ?></td>
+        <td><?php echo $au['fname'] . " " .$au['mname'] . " " .$au['lname']; ?></td>
+        <td><?php echo $au['email']; ?></td>
+        <td><?php echo $au['contact']; ?></td>
+        <td><?php echo $au['address']; ?></td>
+        <td><?php echo $au['gender']; ?></td>
+        <td><?php echo $au['name']; ?></td>
+        <td>
+            <a href="#">View</a>
+            <a style="color:green" href="#">Edit</a>
+            <a style="color:red" href="#">Delete</a>
+        </td>
+      </tr>
+      <?php endforeach; ?>
+
+    </table>
+</section>
+
+<script
+  src="<?php echo(isset($_SERVER['HTTPS']) ? "https": "http"); ?>://<?php echo htmlspecialchars($_SERVER["HTTP_HOST"]); ?>/plazaalemania/public/js/tabs.js"></script>
+</head>
 
 </body>
 </html>

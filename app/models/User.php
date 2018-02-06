@@ -36,15 +36,69 @@ class User{
 
     public function getByRole($role){
 
-        
+        $role_ids = [
+            "admin" => 1,
+            "manager" => 2,
+            "clerk" => 3,
+            "customer" => 4
+        ];
+
+        $this->createConnection();
+        $sql = "SELECT u.*, r.name FROM user u INNER JOIN role r ON u.role_id = r.id WHERE u.role_id = ".$role_ids[$role]."";
+        $result = $this->conn->query($sql);
+        $data = [];
+
+        if (!$result) {
+            trigger_error('Invalid query: ' . $this->conn->error);
+        }
+
+        if ($result->num_rows > 0) {
+            // output data of each row
+            while( $row = $result->fetch_assoc() ){
+                array_push($data, $row);
+            }
+            return $data;
+
+        } else {
+            $result = [];
+            return $result;
+        }
+
+        $this->closeConnection();
 
     }
 
     public function getByEmail($email){
 
         $this->createConnection();
+        $sql = "SELECT u.*, r.name FROM user u INNER JOIN role r ON u.role_id = r.id WHERE u.email ='".$email."'";
+        $result = $this->conn->query($sql);
+        $data = [];
 
-        $sql = "SELECT * FROM user WHERE email = '".$email."'";
+        if (!$result) {
+            trigger_error('Invalid query: ' . $this->conn->error);
+        }
+
+        if ($result->num_rows > 0) {
+            // output data of each row
+            while( $row = $result->fetch_assoc() ){
+                array_push($data, $row);
+            }
+            return $data;
+
+        } else {
+            $result = [];
+            return $result;
+        }
+
+        $this->closeConnection();
+
+    }
+
+    public function getById($id){
+
+        $this->createConnection();
+        $sql = "SELECT u.*, r.name FROM user u INNER JOIN role r ON u.role_id = r.id WHERE u.id ='".$id."'";
         $result = $this->conn->query($sql);
         $data = [];
 

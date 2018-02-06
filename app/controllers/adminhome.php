@@ -3,9 +3,11 @@
 class AdminHome extends Controller{
 
     protected $auth_user;
+    protected $admin_users;
 
     public function __construct(){
         $this->auth_user = $this->model('AuthUser');
+        $this->admin_users = $this->model('User')->getByRole("admin");
     }
 
     public function index(){
@@ -13,7 +15,9 @@ class AdminHome extends Controller{
         if( $this->auth_user->auth ){
 
             $roles = $this->model('Role')->get();
-            $this->view('admin/home', ['roles'=>$roles, 'user'=>$this->auth_user]);
+            $this->view('admin/home', ['roles'=>$roles, 'user'=>$this->auth_user,
+            'admin_users' => $this->admin_users
+        ]);
 
         }
         else{
@@ -23,6 +27,20 @@ class AdminHome extends Controller{
             exit();
 
         }
+
+    }
+
+    public function viewuserjson($id){
+
+        $user = $this->model('User')->getById($id);
+
+        $data = [
+            "id" => $user[0]['id'],
+            "fname" => $user[0]['fname'],
+            "mname" => $user[0]['mname'],
+            "lname" => $user[0]['lname'],
+            "email" => $user[0]['email']
+        ];
 
     }
 
@@ -42,7 +60,9 @@ class AdminHome extends Controller{
                 if( $_POST['password'] != $_POST['confirm_password'] ){
                     $roles = $this->model('Role')->get();
                     $err_msg =  "Password does not match!";
-                    $this->view('admin/home', ['roles'=>$roles, 'user'=>$this->auth_user, 'error_msg'=>$err_msg]);
+                    $this->view('admin/home', ['roles'=>$roles, 'user'=>$this->auth_user, 'error_msg'=>$err_msg,
+                        'admin_users' => $this->admin_users
+                    ]);
                     exit;
                 }
 
@@ -51,7 +71,9 @@ class AdminHome extends Controller{
                 if( !empty($check_email) ){
                     $roles = $this->model('Role')->get();
                     $err_msg =  "Email Already taken!";
-                    $this->view('admin/home', ['roles'=>$roles, 'user'=>$this->auth_user, 'error_msg'=>$err_msg]);
+                    $this->view('admin/home', ['roles'=>$roles, 'user'=>$this->auth_user, 'error_msg'=>$err_msg,
+                        'admin_users' => $this->admin_users
+                    ]);
                     exit;
                 }
 
@@ -64,7 +86,9 @@ class AdminHome extends Controller{
                     $uploadOk = 0;
 
                     $roles = $this->model('Role')->get();
-                    $this->view('admin/home', ['roles'=>$roles, 'user'=>$this->auth_user, 'error_msg'=>$err_msg]);
+                    $this->view('admin/home', ['roles'=>$roles, 'user'=>$this->auth_user, 'error_msg'=>$err_msg,
+                        'admin_users' => $this->admin_users
+                    ]);
                     exit;
                 }
 
@@ -78,7 +102,9 @@ class AdminHome extends Controller{
                     $err_msg =  "Sorry, your file is too large.";
                     $uploadOk = 0;
                     $roles = $this->model('Role')->get();
-                    $this->view('admin/home', ['roles'=>$roles, 'user'=>$this->auth_user, 'error_msg'=>$err_msg]);
+                    $this->view('admin/home', ['roles'=>$roles, 'user'=>$this->auth_user, 'error_msg'=>$err_msg,
+                        'admin_users' => $this->admin_users
+                    ]);
                     exit;
                 }
                 // Allow certain file formats
@@ -87,14 +113,18 @@ class AdminHome extends Controller{
                     $err_msg = "Sorry, only JPG, JPEG, PNG & GIF files are allowed.";
                     $uploadOk = 0;
                     $roles = $this->model('Role')->get();
-                    $this->view('admin/home', ['roles'=>$roles, 'user'=>$this->auth_user, 'error_msg'=>$err_msg]);
+                    $this->view('admin/home', ['roles'=>$roles, 'user'=>$this->auth_user, 'error_msg'=>$err_msg,
+                        'admin_users' => $this->admin_users
+                    ]);
                     exit;
                 }
                 // Check if $uploadOk is set to 0 by an error
                 if ($uploadOk == 0) {
                     $err_msg = "Sorry, your file was not uploaded.";
                     $roles = $this->model('Role')->get();
-                    $this->view('admin/home', ['roles'=>$roles, 'user'=>$this->auth_user, 'error_msg'=>$err_msg]);
+                    $this->view('admin/home', ['roles'=>$roles, 'user'=>$this->auth_user, 'error_msg'=>$err_msg,
+                        'admin_users' => $this->admin_users
+                    ]);
                     exit;
                 // if everything is ok, try to upload file
                 } else {
@@ -116,12 +146,16 @@ class AdminHome extends Controller{
 
                         $succ_msg = "Successfully added " . $new_user->fname;
                         $roles = $this->model('Role')->get();
-                        $this->view('admin/home', ['roles'=>$roles, 'user'=>$this->auth_user, 'success_msg'=>$succ_msg]);
+                        $this->view('admin/home', ['roles'=>$roles, 'user'=>$this->auth_user, 'success_msg'=>$succ_msg,
+                            'admin_users' => $this->admin_users
+                        ]);
                         exit;
                     } else {
                         $err_msg = "Sorry, there was an error uploading your file.";
                         $roles = $this->model('Role')->get();
-                        $this->view('admin/home', ['roles'=>$roles, 'user'=>$this->auth_user, 'error_msg'=>$err_msg]);
+                        $this->view('admin/home', ['roles'=>$roles, 'user'=>$this->auth_user, 'error_msg'=>$err_msg,
+                            'admin_users' => $this->admin_users
+                        ]);
                         exit;
                     }
                 }

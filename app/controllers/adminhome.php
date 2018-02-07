@@ -22,7 +22,7 @@ class AdminHome extends Controller{
         }
         else{
 
-            $link = isset($_SERVER['HTTPS']) ? "https": "http"."://".htmlspecialchars($_SERVER["HTTP_HOST"])."/".$this->root_dir."/public/adminlogin";
+            $link = Globals::baseUrl()."/public/adminlogin";
             header("Location: ".$link);
             exit();
 
@@ -43,7 +43,7 @@ class AdminHome extends Controller{
             "address" => $user[0]['address'],
             "contact" => $user[0]['contact'],
             "gender" => $user[0]['gender'],
-            "prof_pic" => (isset($_SERVER['HTTPS']) ? "https": "http")."://".htmlspecialchars($_SERVER["HTTP_HOST"])."/".$this->root_dir."/".$user[0]['prof_pic'],
+            "prof_pic" => Globals::baseUrl()."/".$user[0]['prof_pic'],
             "role" => $user[0]['name']
         ];
 
@@ -173,7 +173,7 @@ class AdminHome extends Controller{
         }
         else{
 
-            $link = isset($_SERVER['HTTPS']) ? "https": "http"."://".htmlspecialchars($_SERVER["HTTP_HOST"])."/".$this->root_dir."/public/adminlogin";
+            $link = Globals::baseUrl()."/public/adminlogin";
             header("Location: ".$link);
             exit();
 
@@ -188,7 +188,7 @@ class AdminHome extends Controller{
         setcookie(session_name(),'',0,'/');
         session_regenerate_id(true);
 
-        $link = isset($_SERVER['HTTPS']) ? "https": "http"."://".htmlspecialchars($_SERVER["HTTP_HOST"])."/plazaalemania/public/adminlogin";
+        $link = Globals::baseUrl()."/public/adminlogin";
         header("Location: ".$link);
         exit();
 

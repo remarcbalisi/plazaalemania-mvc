@@ -4,10 +4,10 @@
 <section>
   <h1>Home - <?php echo $data['user']->fname ?></h1>
   <section style="overflow-x:hidden;overflow-y:hidden" width="50px">
-      <img width="50px" src="<?php echo(isset($_SERVER['HTTPS']) ? "https": "http"); ?>://<?php echo htmlspecialchars($_SERVER["HTTP_HOST"]); ?>/plazaalemania/<?php echo $data['user']->prof_pic ?>" alt="">
+      <img width="50px" src="<?php echo Globals::baseUrl();?>/<?php echo $data['user']->prof_pic ?>" alt="">
       <p style="font-size:10px;margin-top:-4px;margin-bottom:2px;"><?php echo $data['user']->email ?></p>
   </section>
-  <a href="<?php echo(isset($_SERVER['HTTPS']) ? "https": "http"); ?>://<?php echo htmlspecialchars($_SERVER["HTTP_HOST"]); ?>/plazaalemania/public/adminhome/logout">
+  <a href="<?php echo Globals::baseUrl(); ?>/public/adminhome/logout">
       <button type="button" name="logout">Logout</button>
   </a>
 
@@ -24,7 +24,7 @@
     <?php if( !empty($data['error_msg']) ): ?>
         <p style="color:red"><?=$data['error_msg']?></p>
     <?php endif; ?>
-    <form enctype="multipart/form-data" action="<?php echo(isset($_SERVER['HTTPS']) ? "https": "http"); ?>://<?php echo htmlspecialchars($_SERVER["HTTP_HOST"]); ?>/plazaalemania/public/adminhome/adduser" method="post">
+    <form enctype="multipart/form-data" action="<?php echo Globals::baseUrl(); ?>/public/adminhome/adduser" method="post">
         <input type="text" name="fname" value="" placeholder="First name" required>
         <input type="text" name="mname" value="" placeholder="Middle name" required>
         <input type="text" name="lname" value="" placeholder="Last name" required>
